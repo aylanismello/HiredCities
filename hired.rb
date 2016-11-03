@@ -1,43 +1,61 @@
 require 'geokit'
 require 'yaml'
+require 'byebug'
 require 'ruby-progressbar'
 
 CONFIG = YAML.load_file('config.yaml')
 CITIES, API_KEY = CONFIG['cities'], CONFIG['api_key']
-CITY_PAIR_PERMUTATIONS = (1 ... CITIES.length).to_a.inject(0, :+)
-PROGRESS_STEP = 100.0 / CITY_PAIR_PERMUTATIONS
-
+PROGRESS_STEP = 100 / CITIES.length
 
 class Hired
 
 	def initialize
-		@progressbar = ProgressBar.create
 		Geokit::Geocoders::GoogleGeocoder.api_key = API_KEY
-	end
-
-	def init
-		iterate_cities
-		find_shortest_cities
-	end
-
-	def iterate_cities
+		@progressbar = ProgressBar.create
 		@cities_hash = Hash.new {|hash, key| hash[key] = key }
+	end
+
+	def start
+		city_geocodes = create_city_geocodes
+		find_all_distances(city_geocodes)
+		find_shortest_distance
+	end
+
+
+	# Initially query all cities and store geocode object in hash
+	# to avoid multiple calls to the Maps API
+	def create_city_geocodes
+		city_geocodes = Hash.new
+
+		CITIES.each do |city|
+			city_geocodes[city] = Geokit::Geocoders::GoogleGeocoder.geocode city
+			@progressbar.progress += PROGRESS_STEP
+		end
+
+		city_geocodes
+	end
+
+
+	def find_all_distances(city_geocodes)
 
 		(0...CITIES.length - 1).each do |idx|
 			(idx + 1...CITIES.length).each do |jdx|
 
-				@progressbar.progress += PROGRESS_STEP
 				from_city, to_city = CITIES[idx], CITIES[jdx]
-				from_geo_info = Geokit::Geocoders::GoogleGeocoder.geocode from_city
-				to_geo_info = Geokit::Geocoders::GoogleGeocoder.geocode to_city
+
+				from_geo_info = city_geocodes[from_city]
+				to_geo_info = city_geocodes[to_city]
+
 				distance = from_geo_info.distance_to(to_geo_info)
 				@cities_hash[[from_city, to_city]] = distance
 			end
 		end
 
+		@progressbar.progress = 100
+
 	end
 
-	def find_shortest_cities
+	def find_shortest_distance
 		shortest_distance = @cities_hash.values.sort.first
 
 		shortest_city_pair = @cities_hash.keys.select do |city_pair|
@@ -54,4 +72,4 @@ class Hired
 end
 
 hired = Hired.new
-hired.init
+hired.start
