@@ -45,4 +45,3 @@ the corresponding city pair will be our key, and our answer.
 
 * geokit (wrapper around Google Maps API)
 * ruby-progressbar
-* dotenv

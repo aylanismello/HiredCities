@@ -47,7 +47,7 @@ class Hired
 		shortest_city_pair = shortest_city_pair.first
 		first_city, second_city = shortest_city_pair[0], shortest_city_pair[1]
 
-		puts "#{first_city}, #{second_city}"
+		puts "\n#{first_city}, #{second_city}"
 
 	end
 
