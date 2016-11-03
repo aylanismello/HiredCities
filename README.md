@@ -32,7 +32,7 @@ the corresponding city pair will be our key, and our answer.
 **NOTE**
 
 - This program should take roughly 3-5 minutes to complete depending on your bandwidth speed.
-- If you are greeted with ever annoying quota exceeded error then I am truly sorry.
+- If you are greeted with the ever annoying quota exceeded error then I am truly sorry.
 	- *Try changing* `CONFIG['api_key']` *to* `CONFIG['api_key2']` *to fix the issue.*
 
 
