@@ -1,6 +1,5 @@
 require 'geokit'
 require 'yaml'
-require 'byebug'
 require 'ruby-progressbar'
 
 CONFIG = YAML.load_file('config.yaml')
@@ -35,12 +34,13 @@ class Hired
 		city_geocodes
 	end
 
+	# Iterate over all cities, computes all possible distances and
+	# stores in @cities_hash E.G. @cities_hash[['LA', 'SF']]  = 350
 
 	def find_all_distances(city_geocodes)
 
 		(0...CITIES.length - 1).each do |idx|
 			(idx + 1...CITIES.length).each do |jdx|
-
 				from_city, to_city = CITIES[idx], CITIES[jdx]
 
 				from_geo_info = city_geocodes[from_city]
@@ -52,8 +52,8 @@ class Hired
 		end
 
 		@progressbar.progress = 100
-
 	end
+
 
 	def find_shortest_distance
 		shortest_distance = @cities_hash.values.sort.first
@@ -66,7 +66,6 @@ class Hired
 		first_city, second_city = shortest_city_pair[0], shortest_city_pair[1]
 
 		puts "\n#{first_city}, #{second_city}"
-
 	end
 
 end
