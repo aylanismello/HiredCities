@@ -47,10 +47,8 @@ class Hired
 		shortest_city_pair = shortest_city_pair.first
 		first_city, second_city = shortest_city_pair[0], shortest_city_pair[1]
 
-		puts %Q{
-			Shortest distance between any two Hired locations is between
-			#{first_city} and #{second_city}- #{shortest_distance.to_i} miles!
-		}
+		puts "#{first_city}, #{second_city}"
+
 	end
 
 end
