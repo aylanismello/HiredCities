@@ -12,6 +12,7 @@ class Hired
 
 	def initialize
 		@progressbar = ProgressBar.create
+		Geokit::Geocoders::GoogleGeocoder.api_key = API_KEY
 	end
 
 	def init
@@ -20,7 +21,6 @@ class Hired
 	end
 
 	def iterate_cities
-		Geokit::Geocoders::GoogleGeocoder.api_key = API_KEY
 		@cities_hash = Hash.new {|hash, key| hash[key] = key }
 
 		(0...CITIES.length - 1).each do |idx|
