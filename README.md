@@ -1,6 +1,6 @@
 # Hired Cities
 
-<img src="http://res.cloudinary.com/dfkrjl3pb/image/upload/v1478154799/hired_gif.gif" width="688" height="430" />
+![Gif](http://res.cloudinary.com/dfkrjl3pb/image/upload/v1478158982/ezgif.com-crop_fzauc6.gif)
 
 ### Up And Running
 
