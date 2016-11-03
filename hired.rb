@@ -1,10 +1,9 @@
 require 'geokit'
 require 'yaml'
 require 'ruby-progressbar'
-require 'dotenv'
 
-CITIES = YAML.load_file('cities.yaml')['cities']
-API_KEY = ENV['GOOGLE_MAPS_API_KEY']
+CONFIG = YAML.load_file('config.yaml')
+CITIES, API_KEY = CONFIG['cities'], CONFIG['api_key']
 CITY_PAIR_PERMUTATIONS = (1 ... CITIES.length).to_a.inject(0, :+)
 PROGRESS_STEP = 100.0 / CITY_PAIR_PERMUTATIONS
 
