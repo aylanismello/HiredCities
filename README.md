@@ -1,7 +1,7 @@
 # Hired Cities
 
 
-### Running
+### Up And Running
 
 `git clone`
 
@@ -16,3 +16,5 @@
 ### External gems
 
 * geokit (wrapper around Google Maps API)
+* ruby-progressbar
+* dotenv
